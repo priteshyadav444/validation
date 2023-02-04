@@ -7,11 +7,17 @@ This library provides classes for validating different types of data inputs in P
 -   `Validate`: contains functions for validating individual inputs, such as strings, numbers, and passwords.
 -   `FormValidator`: uses the Validate class to validate form inputs and return errors.
 -   `ErrorHandler`: returns error messages and it methods to handle errors for each particular form input.
+
+## Features
+- Easy to Use
+- API like Laravel
+- Error handling
+
 ## Requirements
 
 -   PHP 7.0 or above.
 
-## Usage
+## Usage - How to use in core Php Form Validation
 
 ### FormValidator Class
 The FormValidator class uses the Validate class to validate form inputs and return errors using Error Class. 
