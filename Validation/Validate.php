@@ -2,7 +2,7 @@
 
 namespace ValidateClass;
 
-include 'Helper/Helper.php';
+include '../Helper/Helper.php';
 /**
  * Validate Class 
  * @author Pritesh Yadav (priteshyadav2015@gmail.com)
