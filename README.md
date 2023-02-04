@@ -1,3 +1,4 @@
+
 # Php Validation Library
 The library is inspired by Laravel validation and provides limited but similar functionality for form validation. It allows developers to define validation rules in a simple, human-readable format (e.g. "required|numeric") and quickly validate user input. This helps to ensure that the data entered into forms is accurate, consistent, and meets certain standards, improving the overall user experience and reducing the risk of errors in the application.
 
@@ -14,8 +15,29 @@ This library provides classes for validating different types of data inputs in P
 
 ### FormValidator Class
 The FormValidator class uses the Validate class to validate form inputs and return errors using Error Class. 
-    $this->obj= new  Validate();
- FormValidator Class uses Error Class to Handle Error
+How to Use : 
+
+1) Include the FormValidator class in your code by using require or include statement. 
+2) Create an instance of the FormValidator class and store it in a variable. 
+3) Call the validate method on the instance of the FormValidator class and pass the form data and validation rules to it as arguments. 
+4) The validate method will validate the form data based on the rules and return true if the data is valid, and false otherwise. 
+5) If the validate method returns false, you can access the error messages using the errors method on the instance of the FormValidator class.
+
+    ```
+    require_once 'FormValidator.php'; 
+    $validator = new FormValidator();
+    
+    $data = [ 'name' => 'John Doe', 'email' => 'johndoe@example.com', 'age' => 25 ];
+    
+    // validation rules    
+    $rules = [ 'name' => 'required', 'email' => 'required|email', 'age' => 'required|numeric' ];
+    
+    // validating the form data    
+    $valid = $validator->validate($data, $rules);
+    ```
+
+
+ FormValidator class uses `ErrorHandler` Class to Handle Error
 
  1. `validate()`: This method takes a reference to the data to be
     sanitized and the validation keys as input. It then iterates through
@@ -54,4 +76,14 @@ Following method :
     
 11.  `extractInteger`: Extracts only the integer part from the input.
     
-12.  `extractFloat`: Extracts only the floating-point number part from the input. 
+12.  `extractFloat`: Extracts only the floating-point number part from the input.
+13. `senitizeInput` : method is a security measure used to sanitize user input. It performs the following operations in the given order:
+
+	- Removes any whitespace from the beginning and end of the input string with `trim()`.
+    
+    - Strips backslashes (`\`) from the input string with `stripslashes()`.
+    - Converts any special HTML characters in the input string to their corresponding HTML entities with `htmlspecialchars()`.
+    
+
+The purpose of these operations is to make sure that the input data is free from any malicious content, such as scripts, that could potentially harm the application. The method returns the sanitized input as the result. 
+
