@@ -8,6 +8,8 @@ use ValidateClass\Validate;
 
 /**
  * FormValidator
+ * @author Pritesh Yadav (priteshyadav2015@gmail.com)
+ * @link https://priteshyadav444.in
  */
 class FormValidator extends Validate
 {
