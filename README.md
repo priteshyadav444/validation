@@ -1,4 +1,6 @@
 # Php Validation Library
+The library is inspired by Laravel validation and provides limited but similar functionality for form validation. It allows developers to define validation rules in a simple, human-readable format (e.g. "required|numeric") and quickly validate user input. This helps to ensure that the data entered into forms is accurate, consistent, and meets certain standards, improving the overall user experience and reducing the risk of errors in the application.
+
 
 This library provides classes for validating different types of data inputs in PHP. It includes the following classes:
 -   `Validate`: contains functions for validating individual inputs, such as strings, numbers, and passwords.
