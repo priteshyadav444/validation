@@ -7,7 +7,7 @@ include "Validate.php";
 use ValidateClass\Validate;
 
 /**
- * FormValidator Class
+ * FormValidator
  * @author Pritesh Yadav (priteshyadav2015@gmail.com)
  * @link https://priteshyadav444.in
  */
@@ -128,6 +128,28 @@ class FormValidator extends Validate
                 Validate::setError(($response->message), $key);
             }
         }
+        if ($validationType == "CHECK_INDIAN_PINCODE") {
+            $response = Validate::checkPinCode($value);
+            if ($response->status == false) {
+                Validate::setError(($response->message), $key);
+            }
+        }
+        if ($validationType == "CHECK_ALPHA_NUMERIC") {
+            if (Validate::isAlphNumeric($value) == false) {
+                Validate::setError(Validate::getErrorMessage($validationType, $key, '', $meta), $key);
+            }
+        }
+        if ($validationType == "CHECK_DATE") {
+            $today = new \DateTime('now');
+            $dob = new \DateTime($value);
+
+            $age = $dob->diff($today)->format("%r%a");
+            if ($age <= 0) {
+                Validate::setError("date must be less than Today", $key);
+            } else if (Validate::checkDate($value) == false) {
+                Validate::setError(Validate::getErrorMessage($validationType, $key, '', $meta), $key);
+            }
+        }
     }
     /**
      * getValidationType : get Mapped Error Type forValidation    
@@ -156,6 +178,8 @@ class FormValidator extends Validate
             'password' => 'CHECK_PASSWORD',
             'cpassword' => 'CHECK_CONFORM_PASSWORD',
             'pincode' => 'CHECK_INDIAN_PINCODE',
+            'alphanumeric' => 'CHECK_ALPHA_NUMERIC',
+            'date' => 'CHECK_DATE',
             default => false
         };
         return $validationType;
