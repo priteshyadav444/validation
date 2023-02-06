@@ -2,7 +2,8 @@
 
 namespace ValidateClass;
 
-include '../Helper/Helper.php';
+$parent = dirname(__DIR__);
+include "$parent./HelperCollection/Helper.php";
 /**
  * Validate Class 
  * @author Pritesh Yadav (priteshyadav2015@gmail.com)

@@ -7,7 +7,7 @@ include "Validate.php";
 use ValidateClass\Validate;
 
 /**
- * FormValidator
+ * FormValidator Class
  * @author Pritesh Yadav (priteshyadav2015@gmail.com)
  * @link https://priteshyadav444.in
  */
