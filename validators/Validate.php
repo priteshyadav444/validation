@@ -3,8 +3,8 @@
 namespace ValidateClass;
 
 $parent = dirname(__DIR__);
-include "$parent./HelperCollection/Helper.php";
-/**
+include "$parent/HelperClass/Helper.php";
+/** 
  * Validate Class 
  * @author Pritesh Yadav (priteshyadav2015@gmail.com)
  * @link https://priteshyadav444.in
@@ -59,6 +59,17 @@ class Validate extends \ErrorHandler
         return true;
     }
     /**
+     * isAlphNumeric : check input is alphanumeric or not allowed special char( _ and .)
+     *
+     * @param  mixed $input
+     * @return bool
+     */
+    public static function isAlphNumeric($input): bool
+    {
+        if (strlen($input) == 0) return false;
+        return (preg_match("/^[a-zA-Z0-9_.-]*$/", $input) == 1);
+    }
+    /**
      * getInt :  Return integer, float or bool when invalid data 
      *
      * @param  mixed $input
@@ -98,13 +109,23 @@ class Validate extends \ErrorHandler
         if (empty($input)) return 0;
         return strlen($input);
     }
+
     /**
-     * checkMinimum : Check minimum length of $input 
+     * checkDate
      *
-     * @param  mixed $input
-     * @param  mixed $length
+     * @param  mixed $date : check date is valid or not (georgion date)
      * @return bool
      */
+    public function checkDate($date): bool
+    {
+        if (false === strtotime($date))
+            return false;
+
+        list($year, $month, $day) = explode('-', $date);
+        if ($year == NULL or $month == NULL or $day == NULL) return false;
+
+        return checkdate($month, $day, $year);
+    }
     public static function checkMinimum($input, $length): bool
     {
         return (self::getLength($input) >= $length);
