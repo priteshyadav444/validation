@@ -3,8 +3,7 @@
 namespace ValidateClass;
 
 $parent = dirname(__DIR__);
-include "$parent./HelperCollection/Helper.php";
-
+include "$parent/HelperClass/Helper.php";
 /** 
  * Validate Class 
  * @author Pritesh Yadav (priteshyadav2015@gmail.com)
@@ -110,7 +109,7 @@ class Validate extends \ErrorHandler
         if (empty($input)) return 0;
         return strlen($input);
     }
- 
+
     /**
      * checkDate
      *
