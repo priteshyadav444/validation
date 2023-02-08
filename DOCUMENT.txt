@@ -97,3 +97,32 @@ Assumtion :
 Only one password in a form.
 Who ever is first that treated as password from (cpassword, and password). Second treated as Conform password treated even it was mentioned earlier as.
 All the dublicate validation for the particular key Removed.
+
+
+Example Program :
+<?php
+
+include_once './../../validation/validators/FormValidator.php';
+
+use Form\FormValidator as FormValidator;
+
+$obj = new FormValidator();
+
+if (isset($_POST['submit'])) {
+    $validations = [
+        'name' => 'string',
+        'email' => 'email',
+        'phone' => 'numeric|min:10|max:10',
+    ];
+    var_dump($obj->validate($_POST, $validations)->isError());
+}
+?>
+
+<?php
+        if ($obj->isError() != false) {
+            foreach ($obj->all() as $error)
+                echo "<li>$error</li>";
+        } else {
+            echo 'All Field are Valid';
+        }
+?>
