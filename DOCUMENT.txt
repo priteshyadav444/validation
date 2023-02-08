@@ -1,0 +1,99 @@
+Features : 
+1) Validation.
+2) Error handling.
+3) Response with Error Message .
+4) Email Validation.
+5) Default Senitization
+	htmlspecialchar
+	triming
+	Remove slases
+
+Test Cases for Each Validation Type:
+Required
+	empty 
+	with value
+
+Numeric Test Cases
+	empty 
+	string 
+	special char
+	alphanumeric
+	number
+
+Decimal Test Cases
+	empty 
+	string 
+	special char
+	alphanumeric
+	number (12.00)
+
+String Test Cases
+	empty 
+	number
+	special char
+	Alphanumeric
+	string
+	fullname
+
+Email Test Case
+	empty
+	number
+	string
+	alhanumeric
+	email
+
+Mimimum 
+	less than value 
+	qual than value
+	negative value
+	greter than value
+	minimum value
+
+maximum
+	less than value 
+	qual than value
+	negative value
+	greter than value
+	maximum value
+
+if cpassword pass prior than password than keys will be considered as password
+
+password 
+	Invalid format
+	valid format
+
+cpassword
+	mis-match possword
+	
+pincode
+	string
+	numeric less than 6
+	numeric more than 6
+	non exitenze pincode
+	exixtent pinocde
+
+
+
+Adding Features Steps: 
+	
+1) Make Validation method in Validate Class that return a boolean Value Ex. public function checkEmail():bool (class : Validate).
+2) Map validation value to validationType in match Method getValidationType Ex. ('email' => CHECK_EMAIL)(class : FormValidation).
+3) Map a $validationType  to errorCode in getErrorMessage(). Ex('CHECK_EMAIL' => 'INVALID_DATATYPE_KEY'). (class : FormValidation)
+4) Map a $errorCode to Error Message in $errorHandler Ex('INVALID_DATATYPE_KEY' => 'Invalid Data types'). (class : FormValidation).
+
+5) Add contional statement for $validationType in performValidation. 
+	Perform a validation using Validate Class method on Error 
+	Call a setError method and pass a error message using getErrorMethod by pass argument $validationType and other argument.
+
+
+
+
+Todo : 
+Warning on invalid validation input or 
+optimise code For console as well as WEB
+
+
+Assumtion : 
+Only one password in a form.
+Who ever is first that treated as password from (cpassword, and password). Second treated as Conform password treated even it was mentioned earlier as.
+All the dublicate validation for the particular key Removed.
