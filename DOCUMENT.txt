@@ -73,6 +73,22 @@ pincode
 	exixtent pinocde
 
 
+FileUpload
+	Validaiton types Support:
+		required
+		max:12
+		filetype:pdf
+		
+	Current file validaiton support :
+		 "jpg" => "image/jpeg",
+            "jpeg" => "image/jpeg",
+            "json" => "application/json",
+            "png" => "image/png",
+            "pdf" => "application/pdf",
+            "txt" => "text/plain",
+            "zip" => "application/zip",
+            default => "application/octet-stream",
+		
 
 Adding Features Steps: 
 	
