@@ -3,6 +3,7 @@
 namespace Form;
 
 include "Validate.php";
+include "FileValidator.php";
 
 use ValidateClass\Validate;
 
@@ -35,10 +36,35 @@ class FormValidator extends Validate
             if (array_key_exists($key, $data)) {
                 $data[$key] = Validate::senitizeInput($data[$key]);
                 $this->validateKey($key, $data[$key], $validation);
+            } else {
+                if (!empty($_FILES[$key]))
+                    $this->fileValidate($_FILES, $key, $validation);
             }
         }
         if ($this->isError()) $this->updateOldValues($data, $this->all());
         return $this;
+    }
+    /**
+     * fileValidate : Validation File of passed Keys
+     *
+     * @param  mixed $File : Takes $_FILES 
+     * @param  mixed $key : file key name
+     * @param  mixed $validation : validation types enclosed with pipe sign
+     * @return void
+     */
+    public function fileValidate($File, $key, $validation)
+    {
+        $obj = new \FileUpload($File, $key);
+
+        $validation = array_unique(explode("|", $validation)); // remove dublicate validation. 
+        foreach ($validation as $type)
+            $obj->validate($type);
+
+        // Check is error present or not than popululate in error class
+        if ($obj->isError()) {
+            foreach ($obj->isError(true) as $value)
+                $this->setError($value, $key);
+        }
     }
     /**
      * validateKey : iterrate though all the validation like by exploding | pipe assign
