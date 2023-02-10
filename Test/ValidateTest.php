@@ -1,6 +1,5 @@
 <?php
 
-include 'Validators/Validate.php';
 require 'vendor/autoload.php';
 
 use PHPUnit\Framework\TestCase;

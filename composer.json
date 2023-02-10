@@ -9,7 +9,10 @@
     "autoload": {
         "psr-4": {
             "Priteshyadav444\\Validation\\": "src/"
-        }
+        },
+        "files": [
+            "Validators/Validate.php"
+        ]
     },
     "authors": [
         {
