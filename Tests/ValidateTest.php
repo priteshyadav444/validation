@@ -3,7 +3,7 @@
 require 'vendor/autoload.php';
 
 use PHPUnit\Framework\TestCase;
-use ValidateClass\Validate;
+use Validators\Validate;
 
 class ValidateTest extends TestCase
 {

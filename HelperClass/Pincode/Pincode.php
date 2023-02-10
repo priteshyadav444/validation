@@ -1,5 +1,5 @@
 <?php
-
+namespace Helper;
 /**
  * PincodeData
  * @author Aadrah halder (hadrash04@gmail.com)

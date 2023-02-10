@@ -1,11 +1,12 @@
 <?php
 
-namespace Form;
+namespace Validators;
 
 include "Validate.php";
 include "FileValidator.php";
 
-use ValidateClass\Validate;
+use Validators\Validate;
+use Validators\FileUpload as File;
 
 /**
  * FormValidator
@@ -54,7 +55,7 @@ class FormValidator extends Validate
      */
     public function fileValidate($File, $key, $validation)
     {
-        $obj = new \FileUpload($File, $key);
+        $obj = new File($File, $key);
 
         $validation = array_unique(explode("|", $validation)); // remove dublicate validation. 
         foreach ($validation as $type)

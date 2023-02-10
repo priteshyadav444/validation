@@ -1,5 +1,7 @@
 <?php
 
+namespace Validators;
+
 /**
  * FileUpload : class that validate and upload files 
  */
@@ -42,12 +44,12 @@ class FileUpload
     /**
      * getFileSize : Return file size in KB
      *
-     * @return int
+     * @return float
      */
-    public  function getFileSize(): int
+    public  function getFileSize(): float
     {
         if ($this->isFileUploaded()) {
-            return $this->fileObject[$this->key]['size'];
+            return ($this->fileObject[$this->key]['size'] / 1024);
         }
         return 0;
     }

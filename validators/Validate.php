@@ -1,15 +1,19 @@
 <?php
 
-namespace ValidateClass;
+namespace Validators;
 
 $parent = dirname(__DIR__);
 include "$parent/HelperClass/Helper.php";
+
+use Helper\IndianPincode;
+use Helper\ErrorHandler;
+
 /** 
  * Validate Class 
  * @author Pritesh Yadav (priteshyadav2015@gmail.com)
  * @link https://priteshyadav444.in
  */
-class Validate extends \ErrorHandler
+class Validate extends ErrorHandler
 {
     /**
      * isInt : Validate input is int or not 
@@ -209,7 +213,7 @@ class Validate extends \ErrorHandler
         do {
             if ($result === false) {
                 // ErrorHandler::__displayError($dataTypes);
-                \ErrorHandler::errorHandler('INVALID_DATATYPE', $dataTypes);
+                ErrorHandler::errorHandler('INVALID_DATATYPE', $dataTypes);
                 $result = Validate::$functionName(readline("Enter Input Again :\n"));
             } else {
                 break;
@@ -300,7 +304,7 @@ class Validate extends \ErrorHandler
      */
     public static function checkPinCode($input): mixed
     {
-        $obj = new \IndianPincode();
+        $obj = new IndianPincode();
         return $obj->validate($input);
     }
 }

@@ -1,5 +1,5 @@
 <?php
-
+namespace Helper;
 /**
  * ObjectFormatter
  */
