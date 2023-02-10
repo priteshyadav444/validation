@@ -161,7 +161,7 @@ class FormValidator extends Validate
             }
         }
         if ($validationType == "CHECK_ALPHA_NUMERIC") {
-            if (Validate::isAlphNumeric($value) == false) {
+            if (Validate::isAlphaNumeric($value) == false) {
                 Validate::setError(Validate::getErrorMessage($validationType, $key, '', $meta), $key);
             }
         }

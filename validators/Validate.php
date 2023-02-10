@@ -28,7 +28,7 @@ class Validate extends \ErrorHandler
      * @param  mixed $input
      * @return bool {@see isInt()}
      */
-    public static function isfloat($input): bool
+    public static function isFloat($input): bool
     {
         $floatval = (float)$input;
         if (strpos($input, '.') == false)
@@ -64,7 +64,7 @@ class Validate extends \ErrorHandler
      * @param  mixed $input
      * @return bool
      */
-    public static function isAlphNumeric($input): bool
+    public static function isAlphaNumeric($input): bool
     {
         if (strlen($input) == 0) return false;
         return (preg_match("/^[a-zA-Z0-9_.-]*$/", $input) == 1);
