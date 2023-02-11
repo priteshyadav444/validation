@@ -120,3 +120,11 @@ Following method :
 
 The purpose of these operations is to make sure that the input data is free from any malicious content, such as scripts, that could potentially harm the application. The method returns the sanitized input as the result. 
 
+
+### Important Notice for Library Users
+Please be aware that this library has not been fully tested and may contain bugs. If you encounter any issues while using this library, we kindly request that you report them in the Issues section of this repository. This will allow us to identify and resolve any problems as soon as possible.
+
+Thank you for your understanding and cooperation.
+
+
+
