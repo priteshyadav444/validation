@@ -5,7 +5,7 @@ namespace Validators;
 /**
  * FileUpload : class that validate and upload files 
  */
-class FileUpload
+class FileValidator
 {
     private $fileObject = array();
     private $key = "";
