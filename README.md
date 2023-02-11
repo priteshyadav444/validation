@@ -6,6 +6,7 @@ The library is inspired by Laravel validation and provides limited but similar f
 This library provides classes for validating different types of data inputs in PHP. It includes the following classes:
 -   `Validate`: contains functions for validating individual inputs, such as strings, numbers, and passwords.
 -   `FormValidator`: uses the Validate class to validate form inputs and return errors.
+-   `FileValidator`: it validate and uploading files. it takes in a $_FILES object and a key to identify the file, and a target directory to upload the file.
 -   `ErrorHandler`: returns error messages and it methods to handle errors for each particular form input.
 
 ## Features
