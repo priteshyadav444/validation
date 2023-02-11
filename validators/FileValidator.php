@@ -1,9 +1,11 @@
 <?php
 
+namespace Validators;
+
 /**
  * FileUpload : class that validate and upload files 
  */
-class FileUpload
+class FileValidator
 {
     private $fileObject = array();
     private $key = "";
@@ -42,12 +44,12 @@ class FileUpload
     /**
      * getFileSize : Return file size in KB
      *
-     * @return int
+     * @return float
      */
-    public  function getFileSize(): int
+    public  function getFileSize(): float
     {
         if ($this->isFileUploaded()) {
-            return $this->fileObject[$this->key]['size'];
+            return ($this->fileObject[$this->key]['size'] / 1024);
         }
         return 0;
     }
@@ -130,25 +132,26 @@ class FileUpload
     /** 
      * validate : validate a file as per validation type and add a error in @param errors 
      *
-     * @param  mixed $valationType
+     * @param  mixed $validationType
      * @return void
      */
-    public function validate($valationType)
+    public function validate($validationType)
     {
-        if (strpos($valationType, ":") != false)
-            list($type, $info) = explode(":", $valationType);
-        else
-            $type = $valationType;
+        if (strpos($validationType, ":") != false) {
+            list($type, $info) = explode(":", $validationType);
+            if (empty($info))  return; // if info not specfied 
+        } else
+            $type = $validationType;
 
         if ($type == "required") {
             if (!$this->isFileUploaded())
                 array_push($this->errors, $this->errorMessage(4));
         }
-        if ($type == "max") {
+        if ($type == "max"  && isset($info)) {
             if ($this->getFileSize() > $info)
                 array_push($this->errors, $this->errorMessage(2, $info));
         }
-        if ($type == "filetype") {
+        if ($type == "filetype" && isset($info)) {
             if (!$this->checkMimeType($info))
                 array_push($this->errors, $this->errorMessage("INVALID_FILE_FORMAT", $info));
         }
