@@ -11,6 +11,8 @@ This library provides classes for validating different types of data inputs in P
 ## Features
 - Easy to Use
 - API like Laravel
+- File handling
+- Validation
 - Error handling
 
 ## Requirements
