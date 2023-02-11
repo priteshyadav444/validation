@@ -33,6 +33,7 @@ How to Use :
 
     ```
     $path = "../../validation/validators/FormValidator.php"; 
+    indlude "$path";
     use Validators\{FormValidator, FileValidator};
     $obj = new FormValidator();
     
@@ -50,20 +51,36 @@ How to Use :
         }
     }
     ```
-
-
- FormValidator class uses `ErrorHandler` Class to Handle Error
-
- 1. `validate()`: This method takes a reference to the data to be
-    sanitized and the validation keys as input. It then iterates through
-    all the validation keys, sanitizes the data.
-   
- 2. `old($key)`:  The `old` method is a function in a PHP class used to return old values if the data was valid. It takes a single parameter, `$key`, which is used to retrieve the value from an array called `oldValues`.
-
+  FormValidator class uses `ErrorHandler` Class to Handle Error :
+  Using isErro() method and all() we can list errors :
+ 
+    if ($obj->isError() != false) {
+            echo '<div class="alert alert-danger" role="alert">';
+            foreach ($obj->all() as $error)
+                echo "<li>$error</li>";
+            echo '</div>';
+    }
+   To populate old value which was valid we can use old() method. 
+  ```
+  <div class="mb-3">
+	<label for="name" class="form-label">Name</label>
+	<input type="text" name="name" value='<?php echo "{$obj->old('name')}"; ?>' class="form-control" id="name" >
+ </div>
+<div class="mb-3">
+	<label for="email" class="form-label">Email</label>
+	<input type="email" oninvalid="InvalidMsg(this);" oninput="InvalidMsg(this);" name="email" value='<?php echo "{$obj->old('email')}"; ?>' class="form-control" id="email" aria-describedby="emailHelp">
+</div>
+<div class="mb-3">
+	<label for="phone" class="form-label">Phone</label>
+	<input type="text" name="phone" value='<?php echo "{$obj->old('phone')}"; ?>' class="form-control" id="phone">
+</div>
+  ```
+	
 ### ErrorHandler Class
 The ErrorHandle class provides functions to handle and store error messages. The class has functions to set error messages, return all error messages, check if errors exist, and handle error messages. 
--   The `all()` method returns an array of all error messages stored in the object's `$errors` array.
--   The `isError()` method checks if there are any errors stored in the object's `$errors` array and returns a boolean value indicating the presence of errors. If a `$key` is passed as a parameter, it will check if there are any errors stored for that specific key in the `$errors` array and return a boolean value accordingly.
+1. `isError()` : method checks if there are any errors stored in the object's `$errors` array and returns a boolean value indicating the presence of errors. If a `$key` is passed as a parameter, it will check if there are any errors stored for that specific key in the `$errors` array and return a boolean value accordingly.
+2. `all()` :  method returns an array of all error messages stored in the object's `$errors` array.
+3. `old($key)`:  The `old` method is a function in a PHP class used to return old values if the data was valid. It takes a single parameter, `$key`, which is used to retrieve the value from an array called `oldValues`.
 
 ### Validate Class
 This is a PHP class named "Validate" that provides functions to validate different data types (integer, float, string, email, password) and also functions to get different data types (integer, string, length). The class also includes error handling functionality through inheritance of the "ErrorHandler" class.
