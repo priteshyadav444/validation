@@ -32,16 +32,23 @@ How to Use :
 5) If the validate method returns false, you can access the error messages using the errors method on the instance of the FormValidator class.
 
     ```
-    require_once 'FormValidator.php'; 
-    $validator = new FormValidator();
+    $path = "../../validation/validators/FormValidator.php"; 
+    use Validators\{FormValidator, FileValidator};
+    $obj = new FormValidator();
     
-    $data = [ 'name' => 'John Doe', 'email' => 'johndoe@example.com', 'age' => 25 ];
+    if (isset($_POST['submit'])) {
+    $validations = [
+        'name' => 'string',
+        'email' => 'email',
+        'phone' => 'numeric|min:10|max:10',
+        'docs' => 'required|filetype:txt'
+    ];
     
-    // validation rules    
-    $rules = [ 'name' => 'required', 'email' => 'required|email', 'age' => 'required|numeric' ];
-    
-    // validating the form data    
-    $valid = $validator->validate($data, $rules);
+    if (!$obj->validate($_POST, $validations)->isError()) {
+        $file = new FileValidator($_FILES, "docs", "files");
+        $file->upload();
+        }
+    }
     ```
 
 
