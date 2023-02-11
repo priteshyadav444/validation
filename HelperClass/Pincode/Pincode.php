@@ -1,7 +1,7 @@
 <?php
 namespace Helper;
 /**
- * PincodeData
+ * IndianPincode
  * @author Aadrah halder (hadrash04@gmail.com)
  */
 class PincodeData
