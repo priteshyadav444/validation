@@ -9,89 +9,99 @@ Features :
 	Remove slases
 
 Test Cases for Each Validation Type:
+
+1) Required:
+
+- Empty input
+- Input with a value
+
+2)Numeric:
+
+- Empty input
+- Input as string
+- Input with special characters
+- Alphanumeric input
+- Input as a number
+
+3)Decimal:
+
+- Empty input
+- Input as string
+- Input with special characters
+- Alphanumeric input
+- Input as a decimal number (12.00)
+
+4)String:
+
+- Empty input
+- Input as a number
+- Input with special characters
+- Alphanumeric input
+- Input as a string
+- Input as full name
+
+5)Email:
+
+- Empty input
+- Input as a number
+- Input as a string
+- Alphanumeric input
+- Valid email input
+
+6)Minimum:
+
+- Input less than the minimum value
+- Input equal to the minimum value
+- Input as a negative value
+- Input greater than the minimum value
+- Input as the minimum value
+7)Maximum:
+
+- Input less than the maximum value
+- Input equal to the maximum value
+- Input as a negative value
+- Input greater than the maximum value
+- Input as the maximum value
+
+8)Password:
+
+- Invalid format input
+- Valid format input
+
+9)Confirm Password:
+
+- Mismatch with the password input
+- Pincode:
+- Input as a string
+- Numeric input with less than 6 characters
+- Numeric input with more than 6 characters
+- Non-existent pincode input
+- Existing pincode input
+10)File Upload:
+
+Validation Types Supported:
+
 Required
-	empty 
-	with value
+- Maximum file size (max:12)
+- File type (filetype:pdf)
+Currently Supported File Types:
 
-Numeric Test Cases
-	empty 
-	string 
-	special char
-	alphanumeric
-	number
-
-Decimal Test Cases
-	empty 
-	string 
-	special char
-	alphanumeric
-	number (12.00)
-
-String Test Cases
-	empty 
-	number
-	special char
-	Alphanumeric
-	string
-	fullname
-
-Email Test Case
-	empty
-	number
-	string
-	alhanumeric
-	email
-
-Mimimum 
-	less than value 
-	qual than value
-	negative value
-	greter than value
-	minimum value
-
-maximum
-	less than value 
-	qual than value
-	negative value
-	greter than value
-	maximum value
-
-if cpassword pass prior than password than keys will be considered as password
-
-password 
-	Invalid format
-	valid format
-
-cpassword
-	mis-match possword
-	
-pincode
-	string
-	numeric less than 6
-	numeric more than 6
-	non exitenze pincode
-	exixtent pinocde
+"jpg" => "image/jpeg"
+"jpeg" => "image/jpeg"
+"json" => "application/json"
+"png" => "image/png"
+"pdf" => "application/pdf"
+"txt" => "text/plain"
+"zip" => "application/zip"
+Default => "application/octet-stream"
+Note: If Confirm Password is processed prior to Password, the keys will be considered as Password.
 
 
-FileUpload
-	Validaiton types Support:
-		required
-		max:12
-		filetype:pdf
-		
-	Current file validaiton support :
-		 "jpg" => "image/jpeg",
-            "jpeg" => "image/jpeg",
-            "json" => "application/json",
-            "png" => "image/png",
-            "pdf" => "application/pdf",
-            "txt" => "text/plain",
-            "zip" => "application/zip",
-            default => "application/octet-stream",
-		
+
+
 
 Adding Features Steps: 
-	
+	`
 1) Make Validation method in Validate Class that return a boolean Value Ex. public function checkEmail():bool (class : Validate).
 2) Map validation value to validationType in match Method getValidationType Ex. ('email' => CHECK_EMAIL)(class : FormValidation).
 3) Map a $validationType  to errorCode in getErrorMessage(). Ex('CHECK_EMAIL' => 'INVALID_DATATYPE_KEY'). (class : FormValidation)
@@ -102,7 +112,19 @@ Adding Features Steps:
 	Call a setError method and pass a error message using getErrorMethod by pass argument $validationType and other argument.
 
 
+Steps to Add Features in a Form Validation Class:
 
+1) Create a validation method in the Validate Class that returns a boolean value. For example: public function checkEmail():bool in the Validate class.
+
+2) Map the validation value to the validation type in the match function inside getValidationType() in the FormValidation Class. For example, 'email' => CHECK_EMAIL.
+
+3) Map the $validationType to an error code in the getErrorMessage() method in the FormValidation class. For example, 'CHECK_EMAIL' => 'INVALID_DATATYPE_KEY'.
+
+4) Map the $errorCode to an error message in the $errorHandler property in the FormValidation class.. For example, 'INVALID_DATATYPE_KEY' => 'Invalid Data types'.
+
+5) Add a conditional statement for $validationType in the performValidation() method. 
+	- If the validation fails, use the Validate Class method to perform the validation, call the setError() method, and 
+	- Pass the error message using the getErrorMessage() method by passing the $validationType and other arguments.
 
 Todo : 
 Warning on invalid validation input or 
@@ -110,9 +132,8 @@ optimise code For console as well as WEB
 
 
 Assumtion : 
-Only one password in a form.
-Who ever is first that treated as password from (cpassword, and password). Second treated as Conform password treated even it was mentioned earlier as.
-All the dublicate validation for the particular key Removed.
+- In the form, only one password field will be treated as the password, with the first field encountered being considered as the password and the second as the confirmation password, regardless of their original label. 
+- All duplicated validations for the same Key field have been removed.
 
 
 Example Program :
