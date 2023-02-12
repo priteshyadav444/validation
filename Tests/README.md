@@ -1,5 +1,10 @@
 
 # Test Cases for Each Validation Type:
+We would like to inform you that this library has not been thoroughly tested and may contain bugs. If you encounter any issues while using the library, please report them in the issues section.
+
+Additionally, PHP Unit Tests have been added for each validation type. To ensure the library works as expected, we highly recommend testing the library using the tests located in the 'Tests' folder. These tests will give you a better understanding of the functionality and reliability of the library."
+
+Currently Testes Test Cases. 
 
 1) Required:
 
