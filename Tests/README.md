@@ -77,12 +77,15 @@ Required
 - File type (filetype:pdf)
 Currently Supported File Types:
 
-"jpg" => "image/jpeg"
-"jpeg" => "image/jpeg"
-"json" => "application/json"
-"png" => "image/png"
-"pdf" => "application/pdf"
-"txt" => "text/plain"
-"zip" => "application/zip"
-Default => "application/octet-stream"
-Note: If Confirm Password is processed prior to Password, the keys will be considered as Password.
+  ```
+  "jpg" => "image/jpeg"
+  "jpeg" => "image/jpeg"
+   "json" => "application/json"
+  "png" => "image/png"
+  "pdf" => "application/pdf"
+  "txt" => "text/plain"
+  "zip" => "application/zip"
+  Default => "application/octet-stream"
+  Note: If Confirm Password is processed prior to Password, the keys will be considered as Password.
+  ```
+
