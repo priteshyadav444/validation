@@ -121,7 +121,7 @@ Following method :
 The purpose of these operations is to make sure that the input data is free from any malicious content, such as scripts, that could potentially harm the application. The method returns the sanitized input as the result. 
 
 
-### Steps to Add Features in a Form Validation Class:
+### Steps to Add custom validation in this library:
 
 1) Create a validation method in the Validate Class that returns a boolean value. For example: public function checkEmail():bool in the Validate class.
 
