@@ -121,6 +121,20 @@ Following method :
 The purpose of these operations is to make sure that the input data is free from any malicious content, such as scripts, that could potentially harm the application. The method returns the sanitized input as the result. 
 
 
+### Steps to Add custom validation in this library:
+
+1) Create a validation method in the Validate Class that returns a boolean value. For example: public function checkEmail():bool in the Validate class.
+
+2) Map the validation key to the validation type in the match function inside getValidationType() in the FormValidation Class. For example, 'email' => CHECK_EMAIL.
+
+3) Map the $validationType to an error code in the getErrorMessage() method in the errorHandler class. For example, 'CHECK_EMAIL' => 'INVALID_DATATYPE_KEY'.
+
+4) Map the $errorCode to an error message in the $errorHandler property in the errorHandler class.. For example, 'INVALID_DATATYPE_KEY' => 'Invalid Data types'.
+
+5) Add a conditional statement for $validationType (CHECK_EMAIL) in the performValidation() method in FormValidator. 
+	- Test using Validate Class method to perform the validation, If the validation fails call the setError() method, and 
+	- Pass the error message using the getErrorMessage() method by passing the $validationType (If the validation fails) and other required arguments.
+
 ### Important Notice for Library Users
 Please be aware that this library has not been fully tested and may contain bugs. If you encounter any issues while using this library, we kindly request that you report them in the Issues section of this repository. This will allow us to identify and resolve any problems as soon as possible.
 
