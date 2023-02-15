@@ -1,5 +1,5 @@
 <?php
-namespace Helper;
+namespace Validation\Helper;
 /**
  * IndianPincode
  * @author Aadrah halder (hadrash04@gmail.com)
