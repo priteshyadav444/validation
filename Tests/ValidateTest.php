@@ -3,8 +3,11 @@
 require 'vendor/autoload.php';
 
 use PHPUnit\Framework\TestCase;
-use Validators\Validate;
+use Validation\Validators\Validate;
 
+use Validation\Helper\ErrorHandler;
+
+$obj = new ErrorHandler();
 class ValidateTest extends TestCase
 {
     public function testisInt()

@@ -5,7 +5,7 @@ namespace Validation\Helper;
 /**
  * ErrorHandler
  */
-class ErrorHandler
+class ErrorHandle
 {
     /**
      * errors
