@@ -1,12 +1,9 @@
 <?php
 
-namespace Validators;
+namespace Validation\Validators;
 
-include "Validate.php";
-include "FileValidator.php";
-
-use Validators\Validate;
-use Validators\FileValidator;
+use Validation\Validators\Validate;
+use Validation\Validators\FileValidator;
 
 /**
  * FormValida

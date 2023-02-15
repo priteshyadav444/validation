@@ -1,19 +1,19 @@
 <?php
 
-namespace Validators;
+namespace Validation\Validators;
 
 $parent = dirname(__DIR__);
-include "$parent/HelperClass/Helper.php";
+include "$parent/Helper/Helper.php";
+// include $parent . "/vendor/autoload.php";
 
-use Helper\IndianPincode;
-use Helper\ErrorHandler;
+use Validation\Helper\{ErrorHandle, IndianPincode};
 
 /** 
  * Validate Class 
  * @author Pritesh Yadav (priteshyadav2015@gmail.com)
  * @link https://priteshyadav444.in
  */
-class Validate extends ErrorHandler
+class Validate extends ErrorHandle
 {
     /**
      * isInt : Validate input is int or not 
@@ -213,7 +213,7 @@ class Validate extends ErrorHandler
         do {
             if ($result === false) {
                 // ErrorHandler::__displayError($dataTypes);
-                ErrorHandler::errorHandler('INVALID_DATATYPE', $dataTypes);
+                ErrorHandle::errorHandler('INVALID_DATATYPE', $dataTypes);
                 $result = Validate::$functionName(readline("Enter Input Again :\n"));
             } else {
                 break;

@@ -1,5 +1,7 @@
 <?php
 
+namespace Validation\Validators;
+
 /**
  * EndpointHelper File that validate and upload files 
  * php version 7.2.10
@@ -11,7 +13,6 @@
  * @link     https://priteshyadav444.in
  */
 
-namespace Validators;
 
 /**
  * EndpointHelper Class that validate and upload files 
@@ -55,7 +56,8 @@ class FileValidator
      */
     public  function isFileUploaded(): bool
     {
-        if (isset($this->_fileObject) == true
+        if (
+            isset($this->_fileObject) == true
             && isset($this->_fileObject[$this->_key]['tmp_name']) == true
             && empty($this->_fileObject[$this->_key]['error'])
         ) {
@@ -86,9 +88,10 @@ class FileValidator
         if ($this->isFileUploaded()) {
             $memeType = mime_content_type($this->_fileObject[$this->_key]['tmp_name']);
             // check uploaded file extention and meme type.
-            if ($this->_getMemeType(
-                pathinfo($this->_fileObject[$this->_key]['name'], PATHINFO_EXTENSION)
-            ) != $memeType
+            if (
+                $this->_getMemeType(
+                    pathinfo($this->_fileObject[$this->_key]['name'], PATHINFO_EXTENSION)
+                ) != $memeType
             ) {
                 array_push($this->_errors, $this->errorMessage("INVALID_FORMAT"));
             }
