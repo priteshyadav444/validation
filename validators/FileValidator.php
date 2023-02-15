@@ -1,60 +1,82 @@
 <?php
 
+/**
+ * EndpointHelper File that validate and upload files 
+ * php version 7.2.10
+ *
+ * @category Class
+ * @package  Validaiton
+ * @author   Pritesh Yadav <priteshyadav2015@gmail.com>
+ * @license  GPL https://www.gnu.org/licenses/gpl-3.0.en.html
+ * @link     https://priteshyadav444.in
+ */
+
 namespace Validators;
 
 /**
- * FileUpload : class that validate and upload files 
+ * EndpointHelper Class that validate and upload files 
+ *
+ * @category Class
+ * @package  Validaiton
+ * @author   Pritesh Yadav <priteshyadav2015@gmail.com>
+ * @license  GPL https://www.gnu.org/licenses/gpl-3.0.en.html
+ * @link     https://priteshyadav444.in
  */
 class FileValidator
 {
-    private $fileObject = array();
-    private $key = "";
-    private $targetDir = "";
-    private $errors = array();
+    private $_fileObject = array();
+    private $_key = "";
+    private $_targetDir = "";
+    private $_errors = array();
 
     /**
-     * __construct : Construtor Takes a $_FILES object and populate @input
+     * Construtor Takes a $_FILES object and populate @input
      *
-     * @param  mixed $input : $_FILES copy
-     * @param  mixed $key : key 
-     * @param  mixed $targetDir : target directory to uplpoad file (Default : "uploads/")
+     * @param mixed $input      : $_FILES copy
+     * @param mixed $_key       : key 
+     * @param mixed $_targetDir : target directory to uplpoad file (Default : "uploads/")
+     * 
      * @return void
      */
-    public function __construct($input, $key, $targetDir = "uploads/")
+    public function __construct($input, $_key, $_targetDir = "uploads/")
     {
-        if (count($input) < 0)
-            $this->fileObject = [$key => array("name" => "", "full_path" => "", "type" => "", "tmp_name" => "", "error" => 4, "size" => 0)];
-        $this->fileObject = $input;
-        $this->key = $key;
-        $this->targetDir = $targetDir;
-        $this->errors = array();
+        if (count($input) < 0) {
+            $this->_fileObject = [$_key => array("name" => "", "full_path" => "", "type" => "", "tmp_name" => "", "error" => 4, "size" => 0)];
+        }
+        $this->_fileObject = $input;
+        $this->_key = $_key;
+        $this->_targetDir = $_targetDir;
+        $this->_errors = array();
     }
     /**
-     * isFileUploaded : Check is file uploaded or not temporarily 
+     * Check is file uploaded or not temporarily 
      *
      * @return bool 
      */
     public  function isFileUploaded(): bool
     {
-        if (isset($this->fileObject) == true && isset($this->fileObject[$this->key]['tmp_name']) == true && empty($this->fileObject[$this->key]['error'])) {
+        if (isset($this->_fileObject) == true
+            && isset($this->_fileObject[$this->_key]['tmp_name']) == true
+            && empty($this->_fileObject[$this->_key]['error'])
+        ) {
             return true;
         }
         return false;
     }
     /**
-     * getFileSize : Return file size in KB
+     * Return file size in KB
      *
      * @return float
      */
     public  function getFileSize(): float
     {
         if ($this->isFileUploaded()) {
-            return ($this->fileObject[$this->key]['size'] / 1024);
+            return ($this->_fileObject[$this->_key]['size'] / 1024);
         }
         return 0;
     }
     /**
-     * getFileType : return file mime type also known as media type
+     * Return file mime type also known as media type
      *
      * @return bool : string
      */
@@ -62,118 +84,140 @@ class FileValidator
     {
 
         if ($this->isFileUploaded()) {
-            $memeType = mime_content_type($this->fileObject[$this->key]['tmp_name']);
-            // check passed file extention and meme type.
-            if ($this->getMemeType(pathinfo($this->fileObject[$this->key]['name'], PATHINFO_EXTENSION)) != $memeType)
-                array_push($this->errors, $this->errorMessage("INVALID_FORMAT"));
+            $memeType = mime_content_type($this->_fileObject[$this->_key]['tmp_name']);
+            // check uploaded file extention and meme type.
+            if ($this->_getMemeType(
+                pathinfo($this->_fileObject[$this->_key]['name'], PATHINFO_EXTENSION)
+            ) != $memeType
+            ) {
+                array_push($this->_errors, $this->errorMessage("INVALID_FORMAT"));
+            }
             return $memeType;
         }
         return false;
     }
     /**
-     * getTempFile : return path of temprory location of uploaded file
+     * Return path of temprory location of uploaded file
      *
      * @return string
      */
     public  function getTempFile(): string
     {
         if ($this->isFileUploaded()) {
-            $tempFile = $_FILES[$this->key]['tmp_name'];
+            $tempFile = $_FILES[$this->_key]['tmp_name'];
             return $tempFile;
         }
         return false;
     }
     /**
-     * getTargetFile : create a path for upload location
+     * Create a path for upload location
      *
      * @return string
      */
     public  function getTargetFile(): string
     {
         if ($this->isFileUploaded()) {
-            $targetFile = basename($_FILES[$this->key]['name']);
+            $targetFile = basename($_FILES[$this->_key]['name']);
             return $targetFile;
         }
         return "/";
     }
     /**
-     * upload : it upload a file 
+     * It upload a file which was on instance 
      *
      * @return void
      */
     public function upload()
     {
         $tempFile = $this->getTempFile();
-        $targetFile = $this->targetDir . "/" . $this->getTargetFile();
+        $targetFile = $this->_targetDir . "/" . $this->getTargetFile();
 
-        if (!file_exists($this->targetDir)) mkdir($this->targetDir);
+        if (!file_exists($this->_targetDir)) {
+            mkdir($this->_targetDir);
+        }
 
-        if (!move_uploaded_file($tempFile, $targetFile))
+        if (!move_uploaded_file($tempFile, $targetFile)) {
             return false;
+        }
 
         return true;
     }
     /**
-     * isError :  check is there any error in file upload 
+     * Check is there any error in file upload 
      *
-     * @param  mixed $return : pass true to get errors in array format
+     * @param mixed $return : pass true to get _errors in array format
+     * 
      * @return bool|array
      */
     public function isError($return = false): bool|array
     {
-        if ($return == true)
-            return $this->errors;
+        if ($return == true) {
+            return $this->_errors;
+        }
 
-        if (empty($this->errors))
+        if (empty($this->_errors)) {
             return false;
-        else
+        } else {
             return true;
+        }
     }
     /** 
-     * validate : validate a file as per validation type and add a error in @param errors 
+     * Validate a file as per validation type and add a error in @param _errors 
      *
-     * @param  mixed $validationType
+     * @param mixed $validationType : validation key 
+     * 
      * @return void
      */
     public function validate($validationType)
     {
         if (strpos($validationType, ":") != false) {
             list($type, $info) = explode(":", $validationType);
-            if (empty($info))  return; // if info not specfied 
-        } else
+            if (empty($info)) {
+                return; // if info not specfied 
+            }
+        } else {
             $type = $validationType;
+        }
 
         if ($type == "required") {
-            if (!$this->isFileUploaded())
-                array_push($this->errors, $this->errorMessage(4));
+            if (!$this->isFileUploaded()) {
+                array_push($this->_errors, $this->errorMessage(4));
+            }
         }
         if ($type == "max"  && isset($info)) {
-            if ($this->getFileSize() > $info)
-                array_push($this->errors, $this->errorMessage(2, $info));
+            if ($this->getFileSize() > $info) {
+                array_push($this->_errors, $this->errorMessage(2, $info));
+            }
         }
         if ($type == "filetype" && isset($info)) {
-            if (!$this->checkMimeType($info))
-                array_push($this->errors, $this->errorMessage("INVALID_FILE_FORMAT", $info));
+            if (!$this->checkMimeType($info)) {
+                array_push(
+                    $this->_errors,
+                    $this->errorMessage("INVALID_FILE_FORMAT", $info)
+                );
+            }
         }
     }
     /**
-     * checkMimeType :  check mime type same or not as passed file extension
+     * Check  mime type same or not as passed file extension
      *
-     * @param  mixed $type 
+     * @param mixed $type : File Extention
+     * 
      * @return void
      */
     public function checkMimeType($type)
     {
-        $memeType = $this->getMemeType($type);
+        $memeType = $this->_getMemeType($type);
         return ($this->getFileType() == $memeType);
     }
     /**
-     * getMemeType : map a file extention with mime type
+     * Map a file extention with mime type
      *
-     * @param  mixed $type
+     * @param mixed $type : file extention
+     * 
      * @return void
      */
-    private function getMemeType($type)
+    private function _getMemeType($type)
     {
         $memeType =  match ($type) {
             "jpg" => "image/jpeg",
@@ -188,10 +232,11 @@ class FileValidator
         return $memeType;
     }
     /**
-     * errorMessage : return a error message as per mapped $errorCode
+     * It return a error message as per mapped $errorCode
      *
-     * @param  mixed $errorCode
-     * @param  mixed $info
+     * @param mixed $errorCode : error code of Error Message
+     * @param mixed $info      : othe meta information of error Code
+     * 
      * @return void
      */
     public function errorMessage($errorCode, $info = "")
@@ -200,7 +245,7 @@ class FileValidator
             0 => "File is uploaded successfully",
             1 => "Uploaded file cross the limit.",
             2 => "Uploaded file cross the limit. $info KB",
-            3 => "File is partially uploaded or there is any error in between uploading.",
+            3 => "File is not uploaded properly",
             4 => "No file was uploaded.",
             6 => "Missing a temporary folder.",
             7 => "Failed to write file to disk.",
