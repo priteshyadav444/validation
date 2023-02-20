@@ -17,5 +17,8 @@
             "name": "Pritesh Yadav",
             "email": "priteshyadav2015@gmail.com"
         }
-    ]
+    ],
+    "require": {
+        "php": ">=8.0"
+      }
 }
