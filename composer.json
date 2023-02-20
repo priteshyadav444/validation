@@ -6,7 +6,7 @@
         "phpunit/phpunit": "^10.0",
         "squizlabs/php_codesniffer": "*"
     },
-    "license": "GPL-3.0 license",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Validation\\": "./"
