@@ -49,121 +49,6 @@ class FileValidator
         $this->_targetDir = $_targetDir;
         $this->_errors = array();
     }
-    /**
-     * Check is file uploaded or not temporarily 
-     *
-     * @return bool 
-     */
-    public  function isFileUploaded(): bool
-    {
-        if (
-            isset($this->_fileObject) == true
-            && isset($this->_fileObject[$this->_key]['tmp_name']) == true
-            && empty($this->_fileObject[$this->_key]['error'])
-        ) {
-            return true;
-        }
-        return false;
-    }
-    /**
-     * Return file size in KB
-     *
-     * @return float
-     */
-    public  function getFileSize(): float
-    {
-        if ($this->isFileUploaded()) {
-            return ($this->_fileObject[$this->_key]['size'] / 1024);
-        }
-        return 0;
-    }
-    /**
-     * Return file mime type also known as media type
-     *
-     * @return bool : string
-     */
-    public  function getFileType(): bool|string
-    {
-
-        if ($this->isFileUploaded()) {
-            $memeType = mime_content_type($this->_fileObject[$this->_key]['tmp_name']);
-            // check uploaded file extention and meme type.
-            if (
-                $this->_getMemeType(
-                    pathinfo($this->_fileObject[$this->_key]['name'], PATHINFO_EXTENSION)
-                ) != $memeType
-            ) {
-                array_push($this->_errors, $this->errorMessage("INVALID_FORMAT"));
-            }
-            return $memeType;
-        }
-        return false;
-    }
-    /**
-     * Return path of temprory location of uploaded file
-     *
-     * @return string
-     */
-    public  function getTempFile(): string
-    {
-        if ($this->isFileUploaded()) {
-            $tempFile = $_FILES[$this->_key]['tmp_name'];
-            return $tempFile;
-        }
-        return false;
-    }
-    /**
-     * Create a path for upload location
-     *
-     * @return string
-     */
-    public  function getTargetFile(): string
-    {
-        if ($this->isFileUploaded()) {
-            $targetFile = basename($_FILES[$this->_key]['name']);
-            return $targetFile;
-        }
-        return "/";
-    }
-    /**
-     * It upload a file which was on instance 
-     *
-     * @return void
-     */
-    public function upload()
-    {
-        $tempFile = $this->getTempFile();
-        $targetFile = $this->_targetDir . "/" . $this->getTargetFile();
-
-        if (!file_exists($this->_targetDir)) {
-            mkdir($this->_targetDir);
-        }
-
-        if (!move_uploaded_file($tempFile, $targetFile)) {
-            return false;
-        }
-
-        return true;
-    }
-    /**
-     * Check is there any error in file upload 
-     *
-     * @param mixed $return : pass true to get _errors in array format
-     * 
-     * @return bool|array
-     */
-    public function isError($return = false): bool|array
-    {
-        if ($return == true) {
-            return $this->_errors;
-        }
-
-        if (empty($this->_errors)) {
-            return false;
-        } else {
-            return true;
-        }
-    }
     /** 
      * Validate a file as per validation type and add a error in @param _errors 
      *
@@ -202,6 +87,80 @@ class FileValidator
         }
     }
     /**
+     * Check is file uploaded or not temporarily 
+     *
+     * @return bool 
+     */
+    public  function isFileUploaded(): bool
+    {
+        if (
+            isset($this->_fileObject) == true
+            && isset($this->_fileObject[$this->_key]['tmp_name']) == true
+            && empty($this->_fileObject[$this->_key]['error'])
+        ) {
+            return true;
+        }
+        return false;
+    }
+    /**
+     * It upload a file which was on instance 
+     *
+     * @return void
+     */
+    public function upload()
+    {
+        $tempFile = $this->getTempFile();
+        $targetFile = $this->_targetDir . "/" . $this->getTargetFile();
+
+        if (!file_exists($this->_targetDir)) {
+            mkdir($this->_targetDir);
+        }
+
+        if (!move_uploaded_file($tempFile, $targetFile)) {
+            return false;
+        }
+
+        return true;
+    }
+    /**
+     * Return file size in KB
+     *
+     * @return float
+     */
+    public  function getFileSize(): float
+    {
+        if ($this->isFileUploaded()) {
+            return ($this->_fileObject[$this->_key]['size'] / 1024);
+        }
+        return 0;
+    }
+    /**
+     * Return path of temprory location of uploaded file
+     *
+     * @return string
+     */
+    public  function getTempFile(): string
+    {
+        if ($this->isFileUploaded()) {
+            $tempFile = $_FILES[$this->_key]['tmp_name'];
+            return $tempFile;
+        }
+        return false;
+    }
+    /**
+     * Create a path for upload location
+     *
+     * @return string
+     */
+    public  function getTargetFile(): string
+    {
+        if ($this->isFileUploaded()) {
+            $targetFile = basename($_FILES[$this->_key]['name']);
+            return $targetFile;
+        }
+        return "/";
+    }
+    /**
      * Check  mime type same or not as passed file extension
      *
      * @param mixed $type : File Extention
@@ -235,6 +194,28 @@ class FileValidator
         return $memeType;
     }
     /**
+     * Return file mime type also known as media type
+     *
+     * @return bool : string
+     */
+    public  function getFileType(): bool|string
+    {
+
+        if ($this->isFileUploaded()) {
+            $memeType = mime_content_type($this->_fileObject[$this->_key]['tmp_name']);
+            // check uploaded file extention and meme type.
+            if (
+                $this->_getMemeType(
+                    pathinfo($this->_fileObject[$this->_key]['name'], PATHINFO_EXTENSION)
+                ) != $memeType
+            ) {
+                array_push($this->_errors, $this->errorMessage("INVALID_FORMAT"));
+            }
+            return $memeType;
+        }
+        return false;
+    }
+    /**
      * It return a error message as per mapped $errorCode
      *
      * @param mixed $errorCode : error code of Error Message
@@ -258,5 +239,24 @@ class FileValidator
             default => "Unexpected Error in File Uploading",
         };
         return $message;
+    }
+    /**
+     * Check is there any error in file upload 
+     *
+     * @param mixed $return : pass true to get _errors in array format
+     * 
+     * @return bool|array
+     */
+    public function isError($return = false): bool|array
+    {
+        if ($return == true) {
+            return $this->_errors;
+        }
+
+        if (empty($this->_errors)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
