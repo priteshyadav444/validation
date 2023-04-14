@@ -142,7 +142,7 @@ class Validate extends ErrorHandler
         return (self::getLength($input) <= $length);
     }
     /**
-     * checkPassword : validate $input as per passed regex
+     * checkPassword : validate $input as per passed regex. this ensures that a password is at least 8 characters long and contains at least one lowercase letter, one uppercase letter, one digit, and one special character.
      *
      * @param  mixed $input
      * @return bool

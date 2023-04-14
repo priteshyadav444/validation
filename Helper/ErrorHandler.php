@@ -94,8 +94,8 @@ class ErrorHandler
             'MAXIMUM_LENGTH_REQUIRED' => "$key maximum length is $meta",
             'INVALID_PASSWORD_FORMAT' => "invalid password format </li>
              <li> password required eight characters,</li>
-             <li> password Required at least one uppercase letter </li> 
-             <li> password Required one lowercase letter</li>
+             <li> password required at least one uppercase letter </li> 
+             <li> password required one lowercase letter</li>
              <li> password required one number </li>
              <li> password required one special character",
             'PASSWORD_MISMATCH' => "password mismatch",
